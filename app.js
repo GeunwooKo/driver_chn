@@ -25,6 +25,7 @@
   const resultScore = document.getElementById('result-score');
   const resultSummary = document.getElementById('result-summary');
   const reviewList = document.getElementById('review-list');
+  const questionCard = document.getElementById('question-card');
 
   let quizQuestions = [];
   let currentIndex = 0;
@@ -64,6 +65,9 @@
 
   function renderQuestion() {
     answered = false;
+    questionCard.classList.remove('card-replay');
+    void questionCard.offsetWidth;
+    questionCard.classList.add('card-replay');
     const q = quizQuestions[currentIndex];
     qIndexEl.textContent = currentIndex + 1;
     scoreCountEl.textContent = score;
@@ -86,23 +90,28 @@
 
     if (q.type === 'tf') {
       qOptions.classList.add('tf-options');
-      const yes = makeOptionButton('O', '맞음', 'Y', q);
-      const no = makeOptionButton('X', '틀림', 'N', q);
+      const yes = makeOptionButton('O', '맞음', 'Y', q, true);
+      const no = makeOptionButton('X', '틀림', 'N', q, true);
       qOptions.appendChild(yes);
       qOptions.appendChild(no);
     } else {
       qOptions.classList.remove('tf-options');
       const labels = ['A', 'B', 'C', 'D'];
       q.options.forEach((opt, i) => {
-        qOptions.appendChild(makeOptionButton(labels[i], opt, labels[i], q));
+        qOptions.appendChild(makeOptionButton(labels[i], opt, labels[i], q, false));
       });
     }
   }
 
-  function makeOptionButton(label, displayText, value, q) {
+  function makeOptionButton(label, displayText, value, q, stacked) {
     const btn = document.createElement('button');
     btn.className = 'opt-btn';
-    btn.innerHTML = `<span class="opt-label">${label}</span>${escapeHtml(displayText)}`;
+    btn.dataset.value = value;
+    if (stacked) {
+      btn.innerHTML = `<span class="opt-label">${label}</span><span class="opt-sub">${escapeHtml(displayText)}</span>`;
+    } else {
+      btn.innerHTML = `<span class="opt-label">${label}</span>${escapeHtml(displayText)}`;
+    }
     btn.addEventListener('click', () => selectAnswer(value, q, btn));
     return btn;
   }
@@ -167,20 +176,19 @@
     const wrongOnes = records.filter(r => !r.correct);
     if (wrongOnes.length === 0) {
       const div = document.createElement('div');
-      div.className = 'review-item';
-      div.textContent = '모든 문제를 맞혔습니다!';
+      div.className = 'review-item all-clear';
+      div.textContent = '전 구간 무사고 통과! 모든 문제를 맞혔습니다.';
       reviewList.appendChild(div);
       return;
     }
     const heading = document.createElement('h2');
     heading.textContent = '틀린 문제 복습';
-    heading.style.fontSize = '1.1rem';
     reviewList.appendChild(heading);
 
-    wrongOnes.forEach(r => {
+    wrongOnes.forEach((r, i) => {
       const div = document.createElement('div');
       div.className = 'review-item';
-      let html = '';
+      let html = `<div class="rv-tag">위반 ${i + 1}</div>`;
       if (r.q.image) html += `<img src="${r.q.image}" alt="">`;
       html += `<div class="rv-text">${escapeHtml(r.q.text)}</div>`;
       const yourLabel = r.q.type === 'tf' ? (r.selected === 'Y' ? 'O (맞음)' : 'X (틀림)') : r.selected;

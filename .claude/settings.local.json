@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(brew list *)",
+      "Bash(pip3 --version)",
+      "Bash(pip3 install *)",
+      "Bash(python3 *)",
+      "Bash(tesseract --list-langs)",
+      "Bash(brew install *)",
+      "Bash(jobs)",
+      "Bash(tesseract crop_test.png stdout -l kor+eng --psm 4)",
+      "Bash(tesseract line_a.png stdout -l kor+eng --psm 7)",
+      "Bash(tesseract line_c.png stdout -l kor+eng --psm 7)",
+      "Bash(tesseract debug_crop.png stdout -l kor+chi_sim+eng --psm 6)",
+      "Bash(tesseract line_a_tight.png stdout -l kor+eng --psm 7)",
+      "Bash(tesseract line_a_v2.png stdout -l kor+eng --psm 7)",
+      "Bash(tesseract answer_line_test.png stdout --psm 7 -c tessedit_char_whitelist=ABCDYN)",
+      "Bash(tesseract answer_line_test.png stdout --psm 7 -l chi_sim+eng)",
+      "Bash(bash wait_check.sh)",
+      "Bash(bash wait_check2.sh)",
+      "Bash(curl -sf http://localhost:8934/index.html)",
+      "Bash(npx --yes playwright --version)",
+      "Read(//private/tmp/**)",
+      "Bash(npx --yes playwright install chromium --with-deps)",
+      "Bash(node -e \"require\\('playwright'\\)\")",
+      "Bash(npm install *)",
+      "Bash(node drive_quiz.js)",
+      "Bash(curl -sI http://localhost:8934/images/q_0235.jpg)",
+      "Bash(lsof -ti:8934 -sTCP:LISTEN)",
+      "Bash(xargs -r kill)",
+      "Bash(rm -f /tmp/drive_quiz.js /tmp/check_img*.js /tmp/finish_quiz.js /tmp/shot_*.png /tmp/http_server.log)",
+      "Bash(npx playwright *)",
+      "Bash(chmod +x /Volumes/P31/driver_agent/start_quiz.command)"
+    ]
+  }
+}

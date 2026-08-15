@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>중국 운전면허 시험 대비 퀴즈</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+
+  <section id="screen-start" class="screen">
+    <h1>중국 운전면허 필기시험</h1>
+    <p class="subtitle">乐驾中国 CHINA-DRIVE 자료 기반 · 무작위 50문제</p>
+    <div id="start-stats" class="stats"></div>
+    <button id="btn-start" class="btn btn-primary">퀴즈 시작</button>
+  </section>
+
+  <section id="screen-quiz" class="screen hidden">
+    <div class="quiz-header">
+      <div class="progress-text"><span id="q-index">1</span> / <span id="q-total">50</span></div>
+      <div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
+      <div class="score-text">정답 <span id="score-count">0</span></div>
+    </div>
+
+    <div id="question-card" class="card">
+      <div id="q-image-wrap" class="q-image-wrap hidden">
+        <img id="q-image" alt="문제 이미지">
+      </div>
+      <div id="q-number" class="q-number"></div>
+      <div id="q-text" class="q-text"></div>
+      <div id="q-options" class="q-options"></div>
+      <div id="q-feedback" class="q-feedback hidden"></div>
+    </div>
+
+    <div class="quiz-actions">
+      <button id="btn-next" class="btn btn-primary hidden">다음 문제</button>
+    </div>
+  </section>
+
+  <section id="screen-result" class="screen hidden">
+    <h1>결과</h1>
+    <div id="result-score" class="result-score"></div>
+    <div id="result-summary" class="result-summary"></div>
+    <div id="review-list" class="review-list"></div>
+    <div class="quiz-actions">
+      <button id="btn-retry" class="btn btn-primary">다시 풀기</button>
+    </div>
+  </section>
+
+</div>
+<script src="questions.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
